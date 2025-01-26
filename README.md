@@ -42,9 +42,9 @@ Reusable screen can be hided without destroying and will be showed with previous
     
 Now you need add this script as component in root object of window prefab.
 
-<img src="https://i.ibb.co/mhdZZQt/Screen-Manager-Unity-Package-Demo2.png" alt="demo" height="380"></img>
+<img src="https://i.ibb.co/mhdZZQt/Screen-Manager-Unity-Package-Demo2.png" alt="demo2" height="380"></img>
 
-<span style="font-size:14pt;color:red"><ins>**Important**</ins></span> **- All screen prefabs must be in specifed folder - `Resources/Screens`**
+${\Large{\color{red}{\bold{\underline{Important}:}}}}$ **All screen prefabs must be in specifed folder - `Resources/Screens`**
 >***Resources folder can be in any folder<br>
 In Screens folder you can create any subfolder***
 
