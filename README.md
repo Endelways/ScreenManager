@@ -44,7 +44,7 @@ Now you need add this script as component in root object of window prefab.
 
 <img src="https://i.ibb.co/mhdZZQt/Screen-Manager-Unity-Package-Demo2.png" alt="demo2" height="380"></img>
 
-${\Large{\color{red}{\bold{\underline{Important}:}}}}$ **All screen prefabs must be in specifed folder - `Resources/Screens`**
+**${\Huge{\textsf{\color{red}{Important:}}}}$ All screen prefabs must be in specifed folder - `Resources/Screens`**
 >***Resources folder can be in any folder<br>
 In Screens folder you can create any subfolder***
 
