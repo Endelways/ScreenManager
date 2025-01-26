@@ -1,16 +1,19 @@
-It's a small unity package, which give you ability for control windows in your application
+#### It's a small unity package, which give you ability for control windows in your application
 
-You can use Screen as base type for create your own window type
-Example:
+# Documentation
+#### You can use Screen as base type for create your own window type
+
+**Example:**
+```C#
     public class InventoryScreen : Screen
     {
         [SerializeField] private Transform inventoryGrid;
         [SerializeField] private InventoryMoneyView moneyView;
         private InventorySlotView[] _itemSlots;
-        private Core.Character.Inventory.Inventory _inventory;
+        private Inventory _inventory;
         
         [Inject] 
-        private void Setup(Core.Character.Inventory.Inventory inventory)
+        private void Setup(Inventory inventory)
         {
             _inventory = inventory;
         }
@@ -30,45 +33,67 @@ Example:
             }
         }
     }
-In inspector you can use checkbox IsReusableScreen for describes YourScreen as reusable screen
-Reusable screen can be hided without destroying and will be showed with previous data in future
+```
+In inspector you can use checkbox `IsReusableScreen` for describes YourScreen as reusable screen.
+
+<img src="https://i.ibb.co/QbWTDvf/Screen-Manager-Unity-Package-Demo.png" alt="demo" width="280"></img>
+
+Reusable screen can be hided without destroying and will be showed with previous data in future.
     
-Now you need add this script as component in root object of window prefab
-You can then manage this window using the service
-First you need create serivce, for example in di installer:
-Container.BindInstance(new ScreenService(screenContainer)).AsSingle().NonLazy();
-As argument you need to use some transform which will parent for all windows
-When you use Show() method, window prefab will be instantiated as child of this transform.
-You can use next methods of ScreenService:
+Now you need add this script as component in root object of window prefab.
 
-Show<YourScreen>(ISceenOptions options) - Instantiates or shows previously disabled prefab with YourScreen component in the specifed root transform
-You can use ScreenOptions class for transfer data to YourScreen component
-Example:
-int a = 5;
-Show<YourScreen>(new ScreenOptions<int>(a)); - send data to YourScreen component
+<img src="https://i.ibb.co/mhdZZQt/Screen-Manager-Unity-Package-Demo2.png" alt="demo" height="380"></img>
 
-In YourScreen class:
-public override void OnOpened(IScreenOptions options) - recive data 
-{
-    base.OnOpened(options);
-    if (options.Value is not int data) return; - check if data correct and cast object to your data type
-    Debug.Log(data); - use data
-}
+<span style="font-size:14pt;color:red"><ins>**Important**</ins></span> **- All screen prefabs must be in specifed folder - `Resources/Screens`**
+>***Resources folder can be in any folder<br>
+In Screens folder you can create any subfolder***
 
+**Full path example - `Assets/Prefabs/Resources/Screens/InventoryScreens/ChestInventoryScreen.prefab`**
 
-if prefab with Component YourSceen doesn't exist, it throws exeption
-if prefab was instantiated previously and now enabled nothing will happen
+#### You can then manage this window using the service<br>
+First you need create serivce, for example in di installer:<br>
+`Container.BindInstance(new ScreenService(screenContainer)).AsSingle().NonLazy();`
+<br>
+As argument you need to use some transform which will parent for all windows.<br>
+When you use `Show()` method, window prefab will be instantiated as child of this transform.<br>
+You can use next methods of `ScreenService`:
 
-Close<YourScreen>() - Destroys prefab with YourScreen component in the specifed root transform
++ `Show<YourScreen>(ISceenOptions options)` - Instantiates or shows previously disabled prefab with `YourScreen` component in the specifed root transform<br>
+You can use `ScreenOptions` class for transfer data to `YourScreen` component<br><br>
+**Example:**<br>
+
+    In place where you executing show method from service:<br>
+    ```C#
+    int a = 5;
+    Show<YourScreen>(new ScreenOptions<int>(a)) // - send data to YourScreen component
+    ```
+    In YourScreen class:<vr>
+    ```C#
+    public override void OnOpened(IScreenOptions options) // recive data 
+    {
+        base.OnOpened(options);
+        if (options.Value is not int data) return; // check if data correct and cast object to your data type
+        Debug.Log(data); - use data
+    }
+    ```
+
+    if prefab with Component YourSceen doesn't exist, it throws exeption<br>
+    if prefab was instantiated previously and now enabled nothing will happen<br>
+
++ `Close<YourScreen>()` - Destroys prefab with YourScreen component in the specifed root transform<br>
 if prefab with Component didnt't instantiated it throws exception
 
-Hide<YourScreen>() - Disables prefab with YourScreen component in the specifed root transform
-if prefab with Component didnt't instantiated it throws exception
-if YourScreen prefab is not ReusableScreen it will be work as Close<YourScreen>()
++ `Hide<YourScreen>()` - Disables prefab with YourScreen component in the specifed root transform<br>
+if prefab with Component didnt't instantiated it throws exception<br>
+if YourScreen prefab is not ReusableScreen it will be work as `Close<YourScreen>()`
 
-You can use some events in YourScreen script for recive data or control lifecycle of your objects, you need override it for use:
-YourScreen.OnOpened(IScreenOptions options) - executes every time when prefab with YourScreen component instatiates 
-options is null by default
-YourScreen.OnDisplay() - executes every time when prefab with YourScreen component instatiates, and when hided prefabs shows again
-YourScreen.OnClosed() - executes every time when prefab with YourScreen component destroys
-YourScreen.OnHide() - executes every time when prefab with YourScreen component destroys and when reusableView hides 
+#### You can use some events in YourScreen script for recive data or control lifecycle of your objects, you need override it for use:<br>
+
++ `YourScreen.OnOpened(IScreenOptions options)` - executes every time when prefab with YourScreen component instatiates<br>
+options is null by default<br>
+
++ `YourScreen.OnDisplay()` - executes every time when prefab with YourScreen component instatiates, and when hided prefabs shows again<br>
+
++ `YourScreen.OnClosed()` - executes every time when prefab with YourScreen component destroys<br>
+
++ `YourScreen.OnHide()` - executes every time when prefab with YourScreen component destroys and when reusableView hides 
