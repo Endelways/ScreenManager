@@ -1,0 +1,13 @@
+{
+  "name": "com.endelways.screenmanager",
+  "version": "1.0.0",
+  "displayName": "ScreenManager",
+  "description": "Tool for managing windows and layouts",
+  "unity": "2019.1",
+  "author": {
+    "name": "Hideki",
+    "email": "hideki2d@outlook,com",
+    "url": "https://github.com/Endelways"
+  },
+  "dependencies": {}
+}
